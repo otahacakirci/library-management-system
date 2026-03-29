@@ -1,19 +1,32 @@
 package com.osman.library_management.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name = "books")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Title cannot be blank.")
+    @Size(min = 2, max = 100, message = "Title must be between 2 and 100 characters.")
+    @Column(nullable = false)
     private String title;
+
+    @NotBlank(message = "Author cannot be blank.")
+    @Size(min = 2, max = 60, message = "Title must be between 2 and 60 characters.")
+    @Column(nullable = false)
     private String author;
+
+    @Min(value = 1000, message = "Published year must be at least 1000")
+    @Max(value = 2100, message = "Published year cannot be greater than 2100")
+    @Column(nullable = false)
     private int publicationYear;
 
     public Book() {
