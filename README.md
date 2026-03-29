@@ -95,6 +95,6 @@ While building this project, I practiced:
 
 ---
 
-## git commit --allow-empty -m "docs: add project README" Author
+##  Author
 
 **Osman Taha Çakırcı**
