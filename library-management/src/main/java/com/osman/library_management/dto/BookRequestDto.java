@@ -12,7 +12,7 @@ public class BookRequestDto {
     @Size(min = 2, max = 60, message = "Author must be between 2 and 60 characters" )
     private String author;
 
-    @NotNull(message = "Published Year cannot be blank.")
+    @NotNull(message = "Published Year cannot be null.")
     @Min(value = 1000, message = "Published Year must be at least 1000")
     @Max(value = 2100, message = "Published Year must be at most 2100")
     private Integer publishedYear;

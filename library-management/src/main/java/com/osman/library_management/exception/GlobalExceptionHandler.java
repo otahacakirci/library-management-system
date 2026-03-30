@@ -38,4 +38,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String>  handleResourceNotFoundException(ResourceNotFoundException ex) {
         return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+    public ResponseEntity<Object> handleJsonParseException(Exception ex) {
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("timestamp", LocalDateTime.now());
+        response.put("status", 400);
+        response.put("error", "Invalid request body or missing fields");
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }
