@@ -1,62 +1,89 @@
-#  Library Management System API
+#  Library Management System
 
-A RESTful API built with Spring Boot for managing books in a library system.
-This project demonstrates production-ready backend practices including validation, global exception handling, DTO architecture, PostgreSQL integration, and API documentation with Swagger.
+A full-stack library management application built with **Spring Boot** (backend) and **Vanilla JavaScript** (frontend).  
+This project demonstrates production-ready practices including layered architecture, validation, global exception handling, CORS configuration, and interactive API documentation with Swagger.
 
 ---
 
 ##  Tech Stack
 
+### Backend
 * Java 17
 * Spring Boot
 * Spring Data JPA (Hibernate)
 * PostgreSQL
 * Maven
-* Swagger (OpenAPI)
+* Swagger / OpenAPI 3
 * Jakarta Validation
+
+### Frontend
+* HTML5
+* CSS3
+* Vanilla JavaScript (Fetch API)
 
 ---
 
 ##  Features
 
-* CRUD operations for books
+* Full CRUD operations for books (Create, Read, Update, Delete)
 * Layered architecture (Controller / Service / Repository)
 * DTO-based request handling
 * Request validation with meaningful error responses
 * Global exception handling (400 / 404 management)
+* CORS configuration for local frontend-backend communication
 * PostgreSQL database integration
-* Interactive API documentation with Swagger
+* Interactive API documentation with Swagger UI
+* Responsive frontend UI served via Spring Boot static resources
 
 ---
 
 ##  Project Structure
 
-```text
-src/main/java/com/example/librarymanagementsystem
-├── controller
-├── service
-├── repository
-├── entity
-├── dto
-├── exception
-└── config
+```
+library-management/
+├── src/
+│   └── main/
+│       ├── java/com/osman/library_management/
+│       │   ├── config/
+│       │   │   ├── CorsConfig.java
+│       │   │   └── OpenApiConfig.java
+│       │   ├── controller/
+│       │   │   └── BookController.java
+│       │   ├── dto/
+│       │   │   └── BookRequestDto.java
+│       │   ├── entity/
+│       │   │   └── Book.java
+│       │   ├── exception/
+│       │   │   ├── GlobalExceptionHandler.java
+│       │   │   └── ResourceNotFoundException.java
+│       │   ├── repository/
+│       │   │   └── BookRepository.java
+│       │   ├── service/
+│       │   │   └── BookService.java
+│       │   └── LibraryManagementApplication.java
+│       └── resources/
+│           ├── static/
+│           │   ├── index.html
+│           │   ├── app.js
+│           │   └── style.css
+│           └── application.properties
 ```
 
 ---
 
 ##  API Endpoints
 
-| Method | Endpoint        | Description       |
-| ------ | --------------- | ----------------- |
-| GET    | /api/books      | Get all books     |
-| GET    | /api/books/{id} | Get book by ID    |
-| POST   | /api/books      | Create a new book |
-| PUT    | /api/books/{id} | Update a book     |
-| DELETE | /api/books/{id} | Delete a book     |
+| Method | Endpoint          | Description        |
+|--------|-------------------|--------------------|
+| GET    | /api/books        | Get all books      |
+| GET    | /api/books/{id}   | Get book by ID     |
+| POST   | /api/books        | Create a new book  |
+| PUT    | /api/books/{id}   | Update a book      |
+| DELETE | /api/books/{id}   | Delete a book      |
 
 ---
 
-##  Example Request
+##  Example Request Body
 
 ```json
 {
@@ -70,72 +97,71 @@ src/main/java/com/example/librarymanagementsystem
 
 ##  Validation & Error Handling
 
-Example validation error response:
-
+**Validation error (400):**
 ```json
 {
   "timestamp": "2026-03-30T10:00:00",
   "status": 400,
   "errors": {
-    "title": "Title cannot be blank",
-    "publishedYear": "Published year cannot be greater than 2100"
+    "title": "Title cannot be blank.",
+    "publishedYear": "Published Year cannot be null."
   }
 }
 ```
 
-Example not found response:
-
-```json
-{
-  "timestamp": "2026-03-30T10:00:00",
-  "status": 404,
-  "error": "Book not found with id: 9999"
-}
+**Not found error (404):**
+```
+Book not found with id: 9999
 ```
 
----
-
-##  API Documentation (Swagger)
-
-After running the application, Swagger UI is available at:
-
-http://localhost:8080/swagger-ui/index.html
-
-You can test all endpoints directly from the browser.
+**Validation rules:**
+* `title` — required, 2–100 characters
+* `author` — required, 2–60 characters
+* `publishedYear` — required, between 1000 and 2100
 
 ---
 
 ##  Database (PostgreSQL via Docker)
 
-Run PostgreSQL using Docker:
-
 ```bash
-docker run --name library-postgres -e POSTGRES_DB=librarydb -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:16
+docker run --name library-postgres \
+  -e POSTGRES_DB=librarydb \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -p 5432:5432 \
+  -d postgres:16
 ```
 
 ---
 
-## ️ Running the Application
+##  Running the Application
 
 ```bash
 mvn clean install
 mvn spring-boot:run
 ```
 
+Once running:
+
+| URL | Description |
+|-----|-------------|
+| `http://localhost:8080` | Frontend UI |
+| `http://localhost:8080/swagger-ui/index.html` | Swagger API Docs |
+
+> **Note:** The frontend can also be opened separately via Live Server at `http://127.0.0.1:5500`. CORS is configured to allow both origins.
+
 ---
 
-##  Purpose
+##  API Documentation (Swagger)
 
-This project was built to strengthen backend development skills and demonstrate:
+All endpoints are documented and testable directly from the browser via Swagger UI:
 
-* Clean API design
-* Proper error handling
-* Real-world backend architecture
-* Database integration
-* API documentation practices
+```
+http://localhost:8080/swagger-ui/index.html
+```
 
 ---
 
 ##  Author
 
-Osman Taha Çakırcı
+**Osman Taha Çakırcı**
