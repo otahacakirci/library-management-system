@@ -1,5 +1,6 @@
 package com.osman.library_management.controller;
 
+import com.osman.library_management.dto.BookRequestDto;
 import com.osman.library_management.entity.Book;
 import com.osman.library_management.service.BookService;
 import jakarta.validation.Valid;
@@ -29,13 +30,13 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book>  createBook( @Valid @RequestBody Book book) {
-        return ResponseEntity.ok(bookService.saveBook(book));
+    public ResponseEntity<Book>  createBook( @Valid @RequestBody BookRequestDto bookRequestDto) {
+        return ResponseEntity.ok(bookService.createBook(bookRequestDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @Valid @RequestBody  Book updatedBook) {
-        return ResponseEntity.ok(bookService.updateBook(id , updatedBook));
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @Valid @RequestBody  BookRequestDto bookRequestDto) {
+        return ResponseEntity.ok(bookService.updateBook(id , bookRequestDto));
     }
 
     @DeleteMapping( "/{id}")

@@ -1,6 +1,8 @@
 package com.osman.library_management.service;
 
+import com.osman.library_management.dto.BookRequestDto;
 import com.osman.library_management.entity.Book;
+import com.osman.library_management.exception.ResourceNotFoundException;
 import com.osman.library_management.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,12 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book saveBook(Book book) {
+    public Book createBook(BookRequestDto bookRequestDto) {
+        Book book = new Book();
+        book.setTitle(bookRequestDto.getTitle());
+        book.setAuthor(bookRequestDto.getAuthor());
+        book.setPublishedYear(bookRequestDto.getPublishedYear());
+
         return bookRepository.save(book);
     }
 
@@ -27,17 +34,15 @@ public class BookService {
         return bookRepository.findById(id).orElse(null);
     }
 
-    public Book updateBook(Long id, Book updatedBook) {
-        Book existingBook = bookRepository.findById(id).orElse(null);
+    public Book updateBook(Long id, BookRequestDto updatedBook) {
+        Book existingBook = bookRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
 
-        if(existingBook != null) {
-            existingBook.setTitle(updatedBook.getTitle());
-            existingBook.setAuthor(updatedBook.getAuthor());
-            existingBook.setPublicationYear(updatedBook.getPublicationYear());
-            return bookRepository.save(existingBook);
-        }
+        existingBook.setTitle(updatedBook.getTitle());
+        existingBook.setAuthor(updatedBook.getAuthor());
+        existingBook.setPublishedYear(updatedBook.getPublishedYear());
 
-        return null;
+        return bookRepository.save(existingBook);
     }
 
     public void deleteBook(Long id) {
