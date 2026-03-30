@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-shell">
+        <div class="decor decor-left" aria-hidden="true"></div>
+        <div class="decor decor-right" aria-hidden="true"></div>
+
+        <main class="app-shell">
+            <section class="hero-card">
+                <p class="eyebrow">Student Portfolio Project</p>
+                <h1>Library Management System</h1>
+                <p class="hero-text">
+                    Manage a growing collection of books with a clean CRUD interface connected to your Spring Boot backend.
+                </p>
+                <div class="hero-tags" aria-hidden="true">
+                    <span>Vanilla JavaScript</span>
+                    <span>REST API</span>
+                    <span>Responsive Layout</span>
+                </div>
+            </section>
+
+            <div class="content-grid">
+                <section class="panel form-panel" aria-labelledby="formHeading">
+                    <div class="panel-header">
+                        <p class="panel-kicker">Book Form</p>
+                        <h2 id="formHeading">Add or update a title</h2>
+                        <p>Use the form below to create a new entry or edit an existing one from the list.</p>
+                    </div>
+
+                    <div class="form-grid">
+                        <label class="field">
+                            <span>Book Title</span>
+                            <input id="titleInput" type="text" placeholder="Enter book title" autocomplete="off">
+                        </label>
+
+                        <label class="field">
+                            <span>Author</span>
+                            <input id="authorInput" type="text" placeholder="Enter author name" autocomplete="off">
+                        </label>
+
+                        <label class="field">
+                            <span>Published Year</span>
+                            <input id="yearInput" type="number" placeholder="Enter published year" inputmode="numeric">
+                        </label>
+                    </div>
+
+                    <div class="action-row">
+                        <button type="button" class="primary-button" onclick="saveBook()">Save Book</button>
+                        <button
+                            type="button"
+                            id="cancelButton"
+                            class="secondary-button"
+                            onclick="cancelEdit()"
+                            style="display: none;"
+                        >
+                            Cancel Edit
+                        </button>
+                    </div>
+
+                    <p id="message" class="message-area" style="color: #b42318;" aria-live="polite"></p>
+                </section>
+
+                <section class="panel list-panel" aria-labelledby="collectionHeading">
+                    <div class="panel-header">
+                        <p class="panel-kicker">Collection</p>
+                        <h2 id="collectionHeading">Library records</h2>
+                        <p>Every saved book is listed here with quick edit and delete actions.</p>
+                    </div>
+
+                    <ul id="bookList" class="book-list"></ul>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
